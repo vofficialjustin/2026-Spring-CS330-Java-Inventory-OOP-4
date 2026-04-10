@@ -1,5 +1,7 @@
 package edu.odu.cs.cs330.items;
 
+import java.util.Objects;
+
 /**
  * This class represents one tool--as found in most video games. This includes
  * pickaxes and shovels.
@@ -72,9 +74,15 @@ public class Tool extends Equippable implements Item {
     @Override
     public Item clone()
     {
-        Tool cpy = new Tool();
+         Tool cpy = new Tool();
 
-        // Refer to the previous assignment
+        cpy.setName(this.name);
+
+        cpy.setDurability(this.getDurability());
+        cpy.setSpeed(this.speed);
+        cpy.setMaterial(this.getMaterial());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
 
         return cpy;
     }
@@ -94,8 +102,12 @@ public class Tool extends Equippable implements Item {
 
         Tool rhsItem = (Tool) rhs;
 
-        // Refer to the previous assignment
-        return false;
+        return this.getSpeed() == rhsItem.getSpeed()
+            && this.getModifierLevel() == rhsItem.getModifierLevel()
+            && Objects.equals(this.getName(), rhsItem.getName())
+            && Objects.equals(this.getMaterial(), rhsItem.getMaterial())
+            && Objects.equals(this.getModifier(), rhsItem.getModifier())
+            && Objects.equals(this.getElement(), rhsItem.getElement());
     }
 
     /**
@@ -105,8 +117,15 @@ public class Tool extends Equippable implements Item {
     @Override
     public int hashCode()
     {
-        // Refer to the previous assignment
-        return -1;
+        // Replace the return
+        return Objects.hash(
+            this.getName(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel(),
+            this.getElement(),
+            this.getSpeed()
+        );
     }
 
     /**
@@ -115,6 +134,14 @@ public class Tool extends Equippable implements Item {
     @Override
     public String toString()
     {
-        return "  Refer to the previous assignment...";
+        return String.format(
+            FMT_STR,
+            this.getName(),
+            this.getDurability(),
+            this.getSpeed(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel()
+        );
     }
 }
